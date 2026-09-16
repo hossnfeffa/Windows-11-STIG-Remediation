@@ -1,5 +1,7 @@
 # Windows 11 STIG Remediation
 
+🚧 **Status: In development.**
+
 A hands-on collection of Security Technical Implementation Guide (STIG) remediations performed against a Windows 11 baseline, documented for portfolio and internship/job-hunt purposes as part of ongoing vulnerability management practice.
 
 ## Overview
