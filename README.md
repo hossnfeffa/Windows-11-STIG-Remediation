@@ -42,18 +42,18 @@ This provides a consistent **STIG → Configuration → Remediation → Verifica
 
 ## STIG Remediations
 
-| STIG ID          | Security Requirement                                               | Severity | Remediation                                    |
-| ---------------- | ------------------------------------------------------------------ | -------- | ---------------------------------------------- |
-| `WN11-AU-000500` | Application event log size must be 32768 KB or greater             | CAT II   | [PowerShell](./remediation-WN11-AU-000500.ps1) |
-| `WN11-CC-000315` | Always install with elevated privileges must be disabled           | CAT I    | [PowerShell](./remediation-WN11-CC-000315.ps1) |
-| `WN11-CC-000090` | Group Policy objects must be reprocessed even if unchanged         | CAT II   | [PowerShell](./remediation-WN11-CC-000090.ps1) |
-| `WN11-CC-000110` | Printing over HTTP must be prevented                               | CAT II   | [PowerShell](./remediation-WN11-CC-000110.ps1) |
-| `WN11-CC-000285` | Remote Desktop Session Host must require secure RPC communications | CAT II   | [PowerShell](./remediation-WN11-CC-000285.ps1) |
-| `WN11-CC-000345` | WinRM service must not use Basic authentication                    | CAT I    | [PowerShell](./remediation-WN11-CC-000345.ps1) |
-| `WN11-CC-000280` | Remote Desktop Services must prompt clients for passwords          | CAT II   | [PowerShell](./remediation-WN11-CC-000280.ps1) |
-| `WN11-CC-000326` | PowerShell Script Block Logging must be enabled                    | CAT II   | [PowerShell](./remediation-WN11-CC-000326.ps1) |
-| `WN11-CC-000185` | Default AutoRun behavior must prevent AutoRun commands             | CAT I    | [PowerShell](./remediation-WN11-CC-000185.ps1) |
-| `WN11-AU-000083` | Other Object Access Events successes must be audited               | CAT II   | [PowerShell](./remediation-WN11-AU-000083.ps1) |
+| STIG ID          | Security Requirement                                               | Severity | Remediation                                          |
+| ---------------- | ------------------------------------------------------------------ | -------- | ---------------------------------------------------- |
+| `WN11-AU-000500` | Application event log size must be 32768 KB or greater             | CAT II   | [PowerShell](./STIGS/remediation-WN11-AU-000500.ps1) |
+| `WN11-CC-000315` | Always install with elevated privileges must be disabled           | CAT I    | [PowerShell](./STIGS/remediation-WN11-CC-000315.ps1) |
+| `WN11-CC-000090` | Group Policy objects must be reprocessed even if unchanged         | CAT II   | [PowerShell](./STIGS/remediation-WN11-CC-000090.ps1) |
+| `WN11-CC-000110` | Printing over HTTP must be prevented                               | CAT II   | [PowerShell](./STIGS/remediation-WN11-CC-000110.ps1) |
+| `WN11-CC-000285` | Remote Desktop Session Host must require secure RPC communications | CAT II   | [PowerShell](./STIGS/remediation-WN11-CC-000285.ps1) |
+| `WN11-CC-000345` | WinRM service must not use Basic authentication                    | CAT I    | [PowerShell](./STIGS/remediation-WN11-CC-000345.ps1) |
+| `WN11-CC-000280` | Remote Desktop Services must prompt clients for passwords          | CAT II   | [PowerShell](./STIGS/remediation-WN11-CC-000280.ps1) |
+| `WN11-CC-000326` | PowerShell Script Block Logging must be enabled                    | CAT II   | [PowerShell](./STIGS/remediation-WN11-CC-000326.ps1) |
+| `WN11-CC-000185` | Default AutoRun behavior must prevent AutoRun commands             | CAT I    | [PowerShell](./STIGS/remediation-WN11-CC-000185.ps1) |
+| `WN11-AU-000083` | Other Object Access Events successes must be audited               | CAT II   | [PowerShell](./STIGS/remediation-WN11-AU-000083.ps1) |
 
 ## Example Remediation
 
