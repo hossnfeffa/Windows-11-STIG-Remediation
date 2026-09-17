@@ -1,103 +1,176 @@
 # Windows 11 STIG Remediation
 
-🚧 **Status: In development.**
-
-A hands-on collection of Security Technical Implementation Guide (STIG) remediations performed against a Windows 11 baseline, documented for portfolio and internship/job-hunt purposes as part of ongoing vulnerability management practice.
+A hands-on Windows 11 security-hardening project focused on identifying, remediating, and verifying DISA Security Technical Implementation Guide (STIG) controls using PowerShell.
 
 ## Overview
 
-This repository documents the process of identifying, remediating, and verifying findings from the DISA **Windows 11 STIG** benchmark in a lab/test environment. Each entry walks through the vulnerability as defined by DISA, the steps taken to remediate it, and evidence that the fix was applied successfully.
+This repository documents Windows 11 STIG remediations performed in a lab environment using the **DISA Microsoft Windows 11 STIG V2R8** baseline.
 
-The goal of this project is to demonstrate practical, hands-on vulnerability management and hardening skills — reading a STIG finding, understanding the underlying risk, applying the correct technical control (Group Policy, registry, local security policy, PowerShell, etc.), and validating the result.
+Each PowerShell remediation is built around an individual STIG control and includes:
 
-## Environment
+* STIG and vulnerability identification
+* Severity, CCI, and SRG mappings
+* Description of the security requirement
+* PowerShell-based remediation
+* Post-remediation verification
+* Clear `[PASS]` / `[FAIL]` validation output
 
-| Item | Details |
-|---|---|
-| Target OS | Windows 11 (Enterprise/Pro) |
-| STIG Benchmark | DISA Microsoft Windows 11 STIG, version `<fill in version/release>` |
-| Scan/Validation Tool | `<e.g., DISA STIG Viewer, PowerSTIG, Evaluate-STIG, manual verification>` |
-| Environment Type | `<e.g., isolated VM / lab environment>` |
+The goal is to demonstrate the full remediation process rather than simply applying registry changes: **understand the security requirement, implement the appropriate control, and verify that the system reached the intended state.**
+
+## Lab Environment
+
+| Item                  | Details                                                      |
+| --------------------- | ------------------------------------------------------------ |
+| Target OS             | Windows 11                                                   |
+| STIG Baseline         | DISA Microsoft Windows 11 STIG V2R8                          |
+| Remediation           | PowerShell                                                   |
+| Configuration Methods | Registry, Windows Audit Policy, Group Policy-backed settings |
+| Validation            | PowerShell, Registry verification, `auditpol`                |
+| Environment           | Windows 11 lab/test system                                   |
 
 ## Methodology
 
-For each finding included in this repository, the following process was followed:
+Each STIG remediation follows the same basic workflow:
 
-1. **Identify** the finding using the DISA STIG Viewer / checklist and record the Vulnerability ID (V-ID), Rule ID, and Severity (CAT I/II/III).
-2. **Assess** the current (non-compliant) state of the system against the finding.
-3. **Remediate** by applying the appropriate control (Local Group Policy, registry edit, security policy setting, or PowerShell script).
-4. **Verify** the fix by re-checking the setting and capturing before/after evidence (screenshots, `gpresult`, registry exports, or script output).
-5. **Document** the finding and remediation steps in this repository.
+1. **Identify** — Review the STIG requirement, Vulnerability ID, severity, CCI, and associated security requirement.
+2. **Assess** — Determine the Windows configuration or policy responsible for the finding.
+3. **Remediate** — Apply the required configuration using PowerShell.
+4. **Verify** — Query the resulting configuration to confirm the expected value was successfully applied.
+5. **Document** — Maintain an individual, repeatable remediation script for the control.
 
-## Remediation Summary
+This provides a consistent **STIG → Configuration → Remediation → Verification** workflow across the repository.
 
-Ten findings are documented in this repository. Fill in the table below as each one is completed and linked to its corresponding folder/file.
+## STIG Remediations
 
-| # | STIG ID (V-ID) | Rule Title | Severity | Status | Remediation Method | Details |
-|---|---|---|---|---|---|---|
-| 1 | `WN11-XX-XXXXXX` | `<rule title>` | CAT `<I/II/III>` | ✅ Complete | `<GPO / Registry / PowerShell>` | [Link](./findings/01-<slug>/) |
-| 2 | `WN11-XX-XXXXXX` | `<rule title>` | CAT `<I/II/III>` | ⬜ Not Started | | [Link](./findings/02-<slug>/) |
-| 3 | `WN11-XX-XXXXXX` | `<rule title>` | CAT `<I/II/III>` | ⬜ Not Started | | [Link](./findings/03-<slug>/) |
-| 4 | `WN11-XX-XXXXXX` | `<rule title>` | CAT `<I/II/III>` | ⬜ Not Started | | [Link](./findings/04-<slug>/) |
-| 5 | `WN11-XX-XXXXXX` | `<rule title>` | CAT `<I/II/III>` | ⬜ Not Started | | [Link](./findings/05-<slug>/) |
-| 6 | `WN11-XX-XXXXXX` | `<rule title>` | CAT `<I/II/III>` | ⬜ Not Started | | [Link](./findings/06-<slug>/) |
-| 7 | `WN11-XX-XXXXXX` | `<rule title>` | CAT `<I/II/III>` | ⬜ Not Started | | [Link](./findings/07-<slug>/) |
-| 8 | `WN11-XX-XXXXXX` | `<rule title>` | CAT `<I/II/III>` | ⬜ Not Started | | [Link](./findings/08-<slug>/) |
-| 9 | `WN11-XX-XXXXXX` | `<rule title>` | CAT `<I/II/III>` | ⬜ Not Started | | [Link](./findings/09-<slug>/) |
-| 10 | `WN11-XX-XXXXXX` | `<rule title>` | CAT `<I/II/III>` | ⬜ Not Started | | [Link](./findings/10-<slug>/) |
+| STIG ID          | Security Requirement                                               | Severity | Remediation                                    |
+| ---------------- | ------------------------------------------------------------------ | -------- | ---------------------------------------------- |
+| `WN11-AU-000500` | Application event log size must be 32768 KB or greater             | CAT II   | [PowerShell](./remediation-WN11-AU-000500.ps1) |
+| `WN11-CC-000315` | Always install with elevated privileges must be disabled           | CAT I    | [PowerShell](./remediation-WN11-CC-000315.ps1) |
+| `WN11-CC-000090` | Group Policy objects must be reprocessed even if unchanged         | CAT II   | [PowerShell](./remediation-WN11-CC-000090.ps1) |
+| `WN11-CC-000110` | Printing over HTTP must be prevented                               | CAT II   | [PowerShell](./remediation-WN11-CC-000110.ps1) |
+| `WN11-CC-000285` | Remote Desktop Session Host must require secure RPC communications | CAT II   | [PowerShell](./remediation-WN11-CC-000285.ps1) |
+| `WN11-CC-000345` | WinRM service must not use Basic authentication                    | CAT I    | [PowerShell](./remediation-WN11-CC-000345.ps1) |
+| `WN11-CC-000280` | Remote Desktop Services must prompt clients for passwords          | CAT II   | [PowerShell](./remediation-WN11-CC-000280.ps1) |
+| `WN11-CC-000326` | PowerShell Script Block Logging must be enabled                    | CAT II   | [PowerShell](./remediation-WN11-CC-000326.ps1) |
+| `WN11-CC-000185` | Default AutoRun behavior must prevent AutoRun commands             | CAT I    | [PowerShell](./remediation-WN11-CC-000185.ps1) |
+| `WN11-AU-000083` | Other Object Access Events successes must be audited               | CAT II   | [PowerShell](./remediation-WN11-AU-000083.ps1) |
 
-## Repository Structure
+## Example Remediation
 
-```
-Windows-11-STIG-Remediation/
-├── README.md
-└── findings/
-    ├── 01-<slug>/
-    │   ├── README.md        # Finding details, before/after, remediation steps
-    │   └── evidence/        # Screenshots, exports, script output
-    ├── 02-<slug>/
-    │   ├── README.md
-    │   └── evidence/
-    └── ...
-```
+Each script follows a standardized structure.
 
-Each finding folder's `README.md` should follow a consistent template, for example:
+For example, `WN11-AU-000500` requires the Windows Application event log maximum size to be configured to at least **32768 KB**.
 
-```markdown
-## <V-ID> - <Rule Title>
+The remediation defines the required registry configuration:
 
-**Severity:** CAT <I/II/III>
-**STIG Reference:** <benchmark name and version>
+```powershell
+$RegistryPath = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application'
+$ValueName = 'MaxSize'
+$RequiredSize = 32768
 
-### Discussion
-Brief explanation of the vulnerability/risk this finding addresses.
+if (-not (Test-Path $RegistryPath)) {
+    New-Item -Path $RegistryPath -Force | Out-Null
+}
 
-### Check
-How the non-compliant state was identified (commands, GPO path, registry key, etc.).
-
-### Fix
-The exact remediation steps taken.
-
-### Verification
-How compliance was confirmed after remediation (with evidence linked below).
-
-### Evidence
-- ![Before](./evidence/before.png)
-- ![After](./evidence/after.png)
+New-ItemProperty `
+    -Path $RegistryPath `
+    -Name $ValueName `
+    -Value $RequiredSize `
+    -PropertyType DWORD `
+    -Force | Out-Null
 ```
 
-## Tools & References
+The script then verifies the resulting configuration:
 
-- [DISA Cyber Exchange – STIGs](https://public.cyber.mil/stigs/)
-- [DISA STIG Viewer](https://public.cyber.mil/stigs/srg-stig-tools/)
-- `<PowerSTIG / Evaluate-STIG, if used>`
-- `<Microsoft Security Compliance Toolkit, if used>`
+```powershell
+$CurrentValue = (Get-ItemProperty -Path $RegistryPath -Name $ValueName).$ValueName
+
+if ($CurrentValue -ge $RequiredSize) {
+    Write-Host "[PASS] WN11-AU-000500 remediated successfully."
+    Write-Host "Application event log MaxSize = $CurrentValue KB"
+}
+else {
+    Write-Host "[FAIL] WN11-AU-000500 remediation was unsuccessful."
+    Write-Host "Current MaxSize = $CurrentValue KB"
+}
+```
+
+This verification step is included so that each remediation confirms the resulting configuration instead of assuming that a successfully executed command resulted in compliance.
+
+## Script Standard
+
+Each remediation script contains identifying information for the associated STIG control:
+
+```text
+STIG-ID         : WN11-AU-000500
+Vulnerability ID: V-253337
+Severity        : CAT II (Medium)
+CCI             : CCI-001849
+SRG             : SRG-OS-000341-GPOS-00132
+```
+
+Scripts also contain:
+
+* Synopsis and security requirement
+* Tested environment information
+* Required registry or policy configuration
+* Remediation logic
+* Post-remediation validation
+* PASS/FAIL output
+
+This keeps each control independently understandable and executable.
+
+## Running a Remediation
+
+Open **PowerShell as Administrator** and execute the desired remediation script.
+
+If PowerShell execution policy prevents the script from running, it can be temporarily bypassed for the current PowerShell process:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
+```
+
+Then run the desired script:
+
+```powershell
+.\remediation-WN11-AU-000500.ps1
+```
+
+The execution-policy change applies only to the current PowerShell process.
+
+> **Note:** STIG remediation should be tested before deployment to production systems. Group Policy, domain policy, security tooling, or other configuration-management systems may override locally configured settings.
+
+## Skills Demonstrated
+
+This project demonstrates practical experience with:
+
+* DISA STIG interpretation and remediation
+* Windows 11 security hardening
+* PowerShell automation
+* Windows Registry configuration
+* Group Policy-backed security settings
+* Windows Advanced Audit Policy
+* Security control validation
+* Configuration verification
+* Vulnerability and compliance remediation
+* CCI and SRG control mapping
+
+## References
+
+* [DISA Cyber Exchange - STIGs](https://public.cyber.mil/stigs/)
+* [DISA STIG/SRG Tools](https://public.cyber.mil/stigs/srg-stig-tools/)
+* [Windows 11 STIG V2R8 - STIG-A-View](https://stigaview.com/products/win11/v2r8/)
 
 ## Disclaimer
 
-All remediations in this repository were performed in an isolated lab/test environment for educational and portfolio purposes. This is not an official DISA-certified assessment and should not be used as a substitute for formal compliance scanning or an authorized STIG assessment.
+All remediations in this repository were performed in a lab/test environment for educational, professional-development, and portfolio purposes.
+
+These scripts are not a substitute for an authorized security assessment or enterprise configuration-management process. STIG requirements and releases may change, and configurations should be validated against the applicable DISA STIG before deployment.
 
 ## Author
 
-**Brent**
-`<LinkedIn / portfolio link>`
+**Brent Petty**
+
+Cybersecurity & Operations Professional
+B.S. Cybersecurity and Information Assurance
+
